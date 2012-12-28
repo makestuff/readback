@@ -36,6 +36,19 @@ Where CC:
         written to cmd_fifo.
 
 
+EXAMPLE: LX9 BOARD WITH 8MiB (64Mib) ONBOARD SDRAM:
+
+Notice that the commands request 0x400000 16-bit words, so the subsequent reads
+and writes are for 0x800000 bytes, which is 8MiB:
+
+  hdlmake.py -t ../templates/fx2min/vhdl -p lx9
+  flcli -i 04b4:8613 -j A7031 -v 04b4:8613 -x top_level.xsvf
+  dd if=/dev/urandom of=random.dat bs=1024 count=8192
+  flcli -v 04b4:8613 -a 'w0 0000000080400000;w0 "random.dat"'
+  flcli -v 04b4:8613 -a 'w0 0000000040400000;r0 800000 "out.dat"'
+  diff out.dat random.dat
+
+
 EXAMPLE: LX9 BOARD WITH 16MiB (128Mib) ONBOARD SDRAM:
 
 Notice that the commands request 0x800000 16-bit words, so the subsequent reads
