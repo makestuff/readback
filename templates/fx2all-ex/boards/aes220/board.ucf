@@ -91,8 +91,8 @@ NET "ramCS_out"        TNM="ram_grp" | LOC="K13" | IOSTANDARD=LVCMOS18;
 #===============================================================================
 # Timing constraints
 #===============================================================================
-TIMESPEC "TS_clk" = PERIOD "fx2Clk_grp" 20.833 ns HIGH 50 %;
+TIMESPEC "TS_clk" = PERIOD "fx2Clk_grp" 20.000 ns HIGH 50 %;
 
-TIMEGRP rio_grp OFFSET = IN 10.77 ns VALID 17.53 ns BEFORE "fx2Clk_in";  # tPER - tAC2 - tCKS = 20.833 - 6 - 4.062
+TIMEGRP rio_grp OFFSET = IN 14 ns VALID 19 ns BEFORE "fx2Clk_in";  # tPER - tAC2 - tCKS = 20.833 - 6 - 4.062
 TIMEGRP rio_grp OFFSET = OUT 17 ns AFTER "fx2Clk_in";
 TIMEGRP ram_grp OFFSET = OUT 17 ns AFTER "fx2Clk_in";
