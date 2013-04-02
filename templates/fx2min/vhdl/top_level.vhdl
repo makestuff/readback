@@ -74,6 +74,7 @@ begin
 		port map(
 			clk_in         => sysClk000,
 			reset_in       => reset,
+			reset_out      => open,
 
 			-- FX2 interface
 			fx2FifoSel_out => fx2FifoSel_out,
