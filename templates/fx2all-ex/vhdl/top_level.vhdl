@@ -1,0 +1,165 @@
+--
+-- Copyright (C) 2009-2012 Chris McClelland
+--
+-- This program is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU Lesser General Public License as published by
+-- the Free Software Foundation, either version 3 of the License, or
+-- (at your option) any later version.
+--
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU Lesser General Public License for more details.
+--
+-- You should have received a copy of the GNU Lesser General Public License
+-- along with this program.  If not, see <http://www.gnu.org/licenses/>.
+--
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+library unisim;
+use unisim.vcomponents.all;
+
+entity top_level is
+	port(
+		-- FX2LP interface ---------------------------------------------------------------------------
+		fx2Clk_in      : in    std_logic;                    -- 48MHz clock from FX2
+		fx2Addr_out    : out   std_logic_vector(1 downto 0); -- select FIFO: "00" for EP2OUT, "10" for EP6IN
+		fx2Data_io     : inout std_logic_vector(7 downto 0); -- 8-bit data to/from FX2
+
+		-- When EP2OUT selected:
+		fx2Read_out    : out   std_logic;                    -- asserted (active-low) when reading from FX2
+		fx2OE_out      : out   std_logic;                    -- asserted (active-low) to tell FX2 to drive bus
+		fx2GotData_in  : in    std_logic;                    -- asserted (active-high) when FX2 has data for us
+
+		-- When EP6IN selected:
+		fx2Write_out   : out   std_logic;                    -- asserted (active-low) when writing to FX2
+		fx2GotRoom_in  : in    std_logic;                    -- asserted (active-high) when FX2 has room for more data from us
+		fx2PktEnd_out  : out   std_logic;                    -- asserted (active-low) when a host read needs to be committed early
+
+		-- SDRAM signals -----------------------------------------------------------------------------
+		ramA12_out     : out   std_logic;
+		ramCKE_out     : out   std_logic;
+		ramCS_out      : out   std_logic;
+		ramClk_out     : out   std_logic;
+		ramCmd_out     : out   std_logic_vector(2 downto 0);
+		ramBank_out    : out   std_logic_vector(1 downto 0);
+		ramAddr_out    : out   std_logic_vector(11 downto 0);
+		ramData_io     : inout std_logic_vector(15 downto 0);
+		ramLDQM_out    : out   std_logic;
+		ramUDQM_out    : out   std_logic
+	);
+end top_level;
+
+architecture structural of top_level is
+	-- Channel read/write interface -----------------------------------------------------------------
+	--signal chanAddr  : std_logic_vector(6 downto 0);  -- the selected channel (0-127)
+
+	-- Host >> FPGA pipe:
+	signal h2fData   : std_logic_vector(7 downto 0);  -- data lines used when the host writes to a channel
+	signal h2fValid  : std_logic;                     -- '1' means "on the next clock rising edge, please accept the data on h2fData"
+	signal h2fReady  : std_logic;                     -- channel logic can drive this low to say "I'm not ready for more data yet"
+
+	-- Host << FPGA pipe:
+	signal f2hData   : std_logic_vector(7 downto 0);  -- data lines used when the host reads from a channel
+	signal f2hValid  : std_logic;                     -- channel logic can drive this low to say "I don't have data ready for you"
+	signal f2hReady  : std_logic;                     -- '1' means "on the next clock rising edge, put your next byte of data on f2hData"
+	-- ----------------------------------------------------------------------------------------------
+
+	-- Clock synthesis & reset
+	signal sysClk000 : std_logic;
+	signal sysClk180 : std_logic;
+	signal locked    : std_logic;
+	signal reset     : std_logic;
+	
+	-- Needed so that the comm_fpga_fx2 module can drive both fx2Read_out and fx2OE_out
+	signal fx2Read   : std_logic;
+
+	-- Reset signal so host can delay startup
+	signal fx2Reset  : std_logic;
+begin
+	ramA12_out <= '0';
+	ramCS_out <= '0';
+	ramCKE_out <= '1';
+	
+	-- CommFPGA module
+	fx2Read_out <= fx2Read;
+	fx2OE_out <= fx2Read;
+	fx2Addr_out(0) <=  -- So fx2Addr_out(1)='0' selects EP2OUT, fx2Addr_out(1)='1' selects EP6IN
+		'0' when fx2Reset = '0'
+		else 'Z';
+	comm_fpga_fx2 : entity work.comm_fpga_fx2
+		port map(
+			clk_in         => sysClk000,
+			reset_in       => reset,
+			reset_out      => fx2Reset,
+
+			-- FX2LP interface
+			fx2FifoSel_out => fx2Addr_out(1),
+			fx2Data_io     => fx2Data_io,
+			fx2Read_out    => fx2Read,
+			fx2GotData_in  => fx2GotData_in,
+			fx2Write_out   => fx2Write_out,
+			fx2GotRoom_in  => fx2GotRoom_in,
+			fx2PktEnd_out  => fx2PktEnd_out,
+
+			-- DVR interface -> Connects to application module
+			chanAddr_out   => open, --chanAddr,
+			h2fData_out    => h2fData,
+			h2fValid_out   => h2fValid,
+			h2fReady_in    => h2fReady,
+			f2hData_in     => f2hData,
+			f2hValid_in    => f2hValid,
+			f2hReady_out   => f2hReady
+		);
+
+	-- SDRAM application
+	sdram_app : entity work.sdram
+		port map(
+			clk_in       => sysClk000,
+			reset_in     => reset,
+			
+			-- DVR interface -> Connects to comm_fpga module
+			--chanAddr_in  => chanAddr,
+			h2fData_in   => h2fData,
+			h2fValid_in  => h2fValid,
+			h2fReady_out => h2fReady,
+			f2hData_out  => f2hData,
+			f2hValid_out => f2hValid,
+			f2hReady_in  => f2hReady,
+			
+			-- External interface
+			ramCmd_out   => ramCmd_out,
+			ramBank_out  => ramBank_out,
+			ramAddr_out  => ramAddr_out,
+			ramData_io   => ramData_io,
+			ramLDQM_out  => ramLDQM_out,
+			ramUDQM_out  => ramUDQM_out
+		);
+
+	-- Generate the system clock from the FX2LP's 48MHz clock
+	clk_gen: entity work.clk_gen
+		port map(
+			clk_in     => fx2Clk_in,
+			clk000_out => sysClk000,
+			clk180_out => sysClk180,
+			locked_out => locked
+		);
+	
+	-- Drive system clock and sync reset
+	clk_drv: FDDRCPE
+		port map(
+			PRE => '0',
+			CLR => '0',
+			D0 => '1',
+			D1 => '0',
+			C0 => sysClk000,
+			C1 => sysClk180,
+			CE => '1',
+			Q  => ramClk_out
+		);
+
+	reset <= not(locked);
+
+end structural;
