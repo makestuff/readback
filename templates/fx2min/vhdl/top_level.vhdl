@@ -46,7 +46,7 @@ entity top_level is
 		ramLDQM_out    : out   std_logic;
 		ramUDQM_out    : out   std_logic
 	);
-end top_level;
+end entity;
 
 architecture structural of top_level is
 	-- Channel read/write interface -----------------------------------------------------------------
@@ -140,4 +140,4 @@ begin
 
 	reset <= not(locked);
 
-end structural;
+end architecture;

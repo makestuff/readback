@@ -44,4 +44,4 @@ entity sdram is
 		ramLDQM_out  : out   std_logic;
 		ramUDQM_out  : out   std_logic
 	);
-end sdram;
+end entity;

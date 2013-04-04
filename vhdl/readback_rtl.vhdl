@@ -173,4 +173,4 @@ begin
 			ramUDQM_out   => ramUDQM_out
 		);
 
-end structural;
+end architecture;
