@@ -40,7 +40,7 @@ NET "fx2PktEnd_out"   LOC="P102" | IOSTANDARD=LVTTL;   # PA6/PKTEND
 #===============================================================================
 # SDRAM
 #===============================================================================
-NET "ramClk_out"      LOC="P48"  | IOSTANDARD=LVTTL;
+NET "ramClk_out"      LOC="P58"  | IOSTANDARD=LVTTL;
 
 NET "ramCmd_out<0>"   LOC="P78"  | IOSTANDARD=LVTTL;
 NET "ramCmd_out<1>"   LOC="P75"  | IOSTANDARD=LVTTL;
@@ -49,18 +49,18 @@ NET "ramCmd_out<2>"   LOC="P74"  | IOSTANDARD=LVTTL;
 NET "ramBank_out<0>"  LOC="P69"  | IOSTANDARD=LVTTL;
 NET "ramBank_out<1>"  LOC="P67"  | IOSTANDARD=LVTTL;
 
-NET "ramAddr_out<0>"  LOC="P45"  | IOSTANDARD=LVTTL;
-NET "ramAddr_out<1>"  LOC="P62"  | IOSTANDARD=LVTTL;
-NET "ramAddr_out<2>"  LOC="P61"  | IOSTANDARD=LVTTL;
-NET "ramAddr_out<3>"  LOC="P60"  | IOSTANDARD=LVTTL;
-NET "ramAddr_out<4>"  LOC="P59"  | IOSTANDARD=LVTTL;
-NET "ramAddr_out<5>"  LOC="P58"  | IOSTANDARD=LVTTL;
-NET "ramAddr_out<6>"  LOC="P57"  | IOSTANDARD=LVTTL;
-NET "ramAddr_out<7>"  LOC="P56"  | IOSTANDARD=LVTTL;
-NET "ramAddr_out<8>"  LOC="P55"  | IOSTANDARD=LVTTL;
-NET "ramAddr_out<9>"  LOC="P51"  | IOSTANDARD=LVTTL;
+NET "ramAddr_out<0>"  LOC="P62"  | IOSTANDARD=LVTTL;
+NET "ramAddr_out<1>"  LOC="P61"  | IOSTANDARD=LVTTL;
+NET "ramAddr_out<2>"  LOC="P60"  | IOSTANDARD=LVTTL;
+NET "ramAddr_out<3>"  LOC="P59"  | IOSTANDARD=LVTTL;
+NET "ramAddr_out<4>"  LOC="P57"  | IOSTANDARD=LVTTL;
+NET "ramAddr_out<5>"  LOC="P56"  | IOSTANDARD=LVTTL;
+NET "ramAddr_out<6>"  LOC="P55"  | IOSTANDARD=LVTTL;
+NET "ramAddr_out<7>"  LOC="P51"  | IOSTANDARD=LVTTL;
+NET "ramAddr_out<8>"  LOC="P50"  | IOSTANDARD=LVTTL;
+NET "ramAddr_out<9>"  LOC="P48"  | IOSTANDARD=LVTTL;
 NET "ramAddr_out<10>" LOC="P66"  | IOSTANDARD=LVTTL;
-NET "ramAddr_out<11>" LOC="P50"  | IOSTANDARD=LVTTL;
+NET "ramAddr_out<11>" LOC="P47"  | IOSTANDARD=LVTTL;
 
 NET "ramData_io<0>"   LOC="P88"  | IOSTANDARD=LVTTL;
 NET "ramData_io<1>"   LOC="P87"  | IOSTANDARD=LVTTL;
@@ -80,7 +80,7 @@ NET "ramData_io<14>"  LOC="P93"  | IOSTANDARD=LVTTL;
 NET "ramData_io<15>"  LOC="P92"  | IOSTANDARD=LVTTL;
 
 NET "ramLDQM_out"     LOC="P79"  | IOSTANDARD=LVTTL;
-NET "ramUDQM_out"     LOC="P47"  | IOSTANDARD=LVTTL;
+NET "ramUDQM_out"     LOC="P46"  | IOSTANDARD=LVTTL;
 
 #===============================================================================
 # Timing constraint of FX2 48MHz clock "fx2Clk_in"
