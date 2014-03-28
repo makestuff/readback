@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2009-2012 Chris McClelland
+# Copyright (C) 2009-2014 Chris McClelland
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -18,81 +18,78 @@
 #===============================================================================
 # USB interface
 #===============================================================================
-NET "fx2Clk_in"       TNM_NET="fx2Clk_grp" | LOC="R9"   | IOSTANDARD=LVTTL;   # IFCLK
-NET "fx2Addr_out<0>"  TNM="fx2_grp" | LOC="P12"  | IOSTANDARD=LVTTL;   # PA4/FIFOADR0
-NET "fx2Addr_out<1>"  TNM="fx2_grp" | LOC="T13"  | IOSTANDARD=LVTTL;   # PA5/FIFOADR1
+NET "fx2Clk_in"       LOC="R9"   | IOSTANDARD=LVTTL;   # IFCLK
+NET "fx2Addr_out<0>"  LOC="P12"  | IOSTANDARD=LVTTL;   # PA4/FIFOADR0
+NET "fx2Addr_out<1>"  LOC="T13"  | IOSTANDARD=LVTTL;   # PA5/FIFOADR1
 
-NET "fx2Data_io<0>"   TNM="fx2_grp" | LOC="T2"   | IOSTANDARD=LVTTL;   # PB0/FD0
-NET "fx2Data_io<1>"   TNM="fx2_grp" | LOC="R2"   | IOSTANDARD=LVTTL;   # PB1/FD1
-NET "fx2Data_io<2>"   TNM="fx2_grp" | LOC="T3"   | IOSTANDARD=LVTTL;   # PB2/FD2
-NET "fx2Data_io<3>"   TNM="fx2_grp" | LOC="P4"   | IOSTANDARD=LVTTL;   # PB3/FD3
-NET "fx2Data_io<4>"   TNM="fx2_grp" | LOC="R3"   | IOSTANDARD=LVTTL;   # PB4/FD4
-NET "fx2Data_io<5>"   TNM="fx2_grp" | LOC="N4"   | IOSTANDARD=LVTTL;   # PB5/FD5
-NET "fx2Data_io<6>"   TNM="fx2_grp" | LOC="P5"   | IOSTANDARD=LVTTL;   # PB6/FD6
-NET "fx2Data_io<7>"   TNM="fx2_grp" | LOC="N6"   | IOSTANDARD=LVTTL;   # PB7/FD7
+NET "fx2Data_io<0>"   LOC="T2"   | IOSTANDARD=LVTTL;   # PB0/FD0
+NET "fx2Data_io<1>"   LOC="R2"   | IOSTANDARD=LVTTL;   # PB1/FD1
+NET "fx2Data_io<2>"   LOC="T3"   | IOSTANDARD=LVTTL;   # PB2/FD2
+NET "fx2Data_io<3>"   LOC="P4"   | IOSTANDARD=LVTTL;   # PB3/FD3
+NET "fx2Data_io<4>"   LOC="R3"   | IOSTANDARD=LVTTL;   # PB4/FD4
+NET "fx2Data_io<5>"   LOC="N4"   | IOSTANDARD=LVTTL;   # PB5/FD5
+NET "fx2Data_io<6>"   LOC="P5"   | IOSTANDARD=LVTTL;   # PB6/FD6
+NET "fx2Data_io<7>"   LOC="N6"   | IOSTANDARD=LVTTL;   # PB7/FD7
 
-NET "fx2Read_out"     TNM="fx2_grp" | LOC="P9"   | IOSTANDARD=LVTTL;   # RDY0/SLRD
-NET "fx2OE_out"       TNM="fx2_grp" | LOC="P7"   | IOSTANDARD=LVTTL;   # PA2/SLOE
-NET "fx2GotData_in"   TNM="fx2_grp" | LOC="T8"   | IOSTANDARD=LVTTL;   # CTL2/FLAGC
+NET "fx2Read_out"     LOC="P9"   | IOSTANDARD=LVTTL;   # RDY0/SLRD
+NET "fx2OE_out"       LOC="P7"   | IOSTANDARD=LVTTL;   # PA2/SLOE
+NET "fx2GotData_in"   LOC="T8"   | IOSTANDARD=LVTTL;   # CTL2/FLAGC
 
-NET "fx2Write_out"    TNM="fx2_grp" | LOC="N10"  | IOSTANDARD=LVTTL;   # RDY1/SLWR
-NET "fx2GotRoom_in"   TNM="fx2_grp" | LOC="T7"   | IOSTANDARD=LVTTL;   # CTL1/FLAGB
-NET "fx2PktEnd_out"   TNM="fx2_grp" | LOC="R13"  | IOSTANDARD=LVTTL;   # PA6/PKTEND
+NET "fx2Write_out"    LOC="N10"  | IOSTANDARD=LVTTL;   # RDY1/SLWR
+NET "fx2GotRoom_in"   LOC="T7"   | IOSTANDARD=LVTTL;   # CTL1/FLAGB
+NET "fx2PktEnd_out"   LOC="R13"  | IOSTANDARD=LVTTL;   # PA6/PKTEND
 
 #===============================================================================
 # SDRAM
 #===============================================================================
-NET "ramClk_out"       TNM="ram_grp" | LOC="J16" | IOSTANDARD=LVCMOS18;
+NET "ramClk_out"      LOC="J16" | IOSTANDARD=LVCMOS18;
 
-NET "ramCmd_out<0>"    TNM="ram_grp" | LOC="N13" | IOSTANDARD=LVCMOS18; # WE
-NET "ramCmd_out<1>"    TNM="ram_grp" | LOC="J14" | IOSTANDARD=LVCMOS18; # CAS
-NET "ramCmd_out<2>"    TNM="ram_grp" | LOC="J13" | IOSTANDARD=LVCMOS18; # RAS
+NET "ramCmd_out<0>"   LOC="N13" | IOSTANDARD=LVCMOS18; # WE
+NET "ramCmd_out<1>"   LOC="J14" | IOSTANDARD=LVCMOS18; # CAS
+NET "ramCmd_out<2>"   LOC="J13" | IOSTANDARD=LVCMOS18; # RAS
 
-NET "ramBank_out<0>"   TNM="ram_grp" | LOC="K14" | IOSTANDARD=LVCMOS18;
-NET "ramBank_out<1>"   TNM="ram_grp" | LOC="J12" | IOSTANDARD=LVCMOS18;
+NET "ramBank_out<0>"  LOC="K14" | IOSTANDARD=LVCMOS18;
+NET "ramBank_out<1>"  LOC="J12" | IOSTANDARD=LVCMOS18;
 
-NET "ramAddr_out<0>"   TNM="ram_grp" | LOC="L14" | IOSTANDARD=LVCMOS18;
-NET "ramAddr_out<1>"   TNM="ram_grp" | LOC="L13" | IOSTANDARD=LVCMOS18;
-NET "ramAddr_out<2>"   TNM="ram_grp" | LOC="M13" | IOSTANDARD=LVCMOS18;
-NET "ramAddr_out<3>"   TNM="ram_grp" | LOC="M14" | IOSTANDARD=LVCMOS18;
-NET "ramAddr_out<4>"   TNM="ram_grp" | LOC="P16" | IOSTANDARD=LVCMOS18;
-NET "ramAddr_out<5>"   TNM="ram_grp" | LOC="N16" | IOSTANDARD=LVCMOS18;
-NET "ramAddr_out<6>"   TNM="ram_grp" | LOC="P15" | IOSTANDARD=LVCMOS18;
-NET "ramAddr_out<7>"   TNM="ram_grp" | LOC="M15" | IOSTANDARD=LVCMOS18;
-NET "ramAddr_out<8>"   TNM="ram_grp" | LOC="M16" | IOSTANDARD=LVCMOS18;
-NET "ramAddr_out<9>"   TNM="ram_grp" | LOC="R15" | IOSTANDARD=LVCMOS18;
-NET "ramAddr_out<10>"  TNM="ram_grp" | LOC="N14" | IOSTANDARD=LVCMOS18;
-NET "ramAddr_out<11>"  TNM="ram_grp" | LOC="K16" | IOSTANDARD=LVCMOS18;
+NET "ramAddr_out<0>"  LOC="L14" | IOSTANDARD=LVCMOS18;
+NET "ramAddr_out<1>"  LOC="L13" | IOSTANDARD=LVCMOS18;
+NET "ramAddr_out<2>"  LOC="M13" | IOSTANDARD=LVCMOS18;
+NET "ramAddr_out<3>"  LOC="M14" | IOSTANDARD=LVCMOS18;
+NET "ramAddr_out<4>"  LOC="P16" | IOSTANDARD=LVCMOS18;
+NET "ramAddr_out<5>"  LOC="N16" | IOSTANDARD=LVCMOS18;
+NET "ramAddr_out<6>"  LOC="P15" | IOSTANDARD=LVCMOS18;
+NET "ramAddr_out<7>"  LOC="M15" | IOSTANDARD=LVCMOS18;
+NET "ramAddr_out<8>"  LOC="M16" | IOSTANDARD=LVCMOS18;
+NET "ramAddr_out<9>"  LOC="R15" | IOSTANDARD=LVCMOS18;
+NET "ramAddr_out<10>" LOC="N14" | IOSTANDARD=LVCMOS18;
+NET "ramAddr_out<11>" LOC="K16" | IOSTANDARD=LVCMOS18;
 
-NET "ramData_io<0>"    TNM="rio_grp" | LOC="C15" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<1>"    TNM="rio_grp" | LOC="E14" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<2>"    TNM="rio_grp" | LOC="F14" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<3>"    TNM="rio_grp" | LOC="F13" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<4>"    TNM="rio_grp" | LOC="G13" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<5>"    TNM="rio_grp" | LOC="E13" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<6>"    TNM="rio_grp" | LOC="G14" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<7>"    TNM="rio_grp" | LOC="D14" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<8>"    TNM="rio_grp" | LOC="H16" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<9>"    TNM="rio_grp" | LOC="F16" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<10>"   TNM="rio_grp" | LOC="G16" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<11>"   TNM="rio_grp" | LOC="E16" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<12>"   TNM="rio_grp" | LOC="F15" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<13>"   TNM="rio_grp" | LOC="D15" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<14>"   TNM="rio_grp" | LOC="D16" | IOSTANDARD=LVCMOS18;
-NET "ramData_io<15>"   TNM="rio_grp" | LOC="C16" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<0>"   LOC="C15" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<1>"   LOC="E14" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<2>"   LOC="F14" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<3>"   LOC="F13" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<4>"   LOC="G13" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<5>"   LOC="E13" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<6>"   LOC="G14" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<7>"   LOC="D14" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<8>"   LOC="H16" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<9>"   LOC="F16" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<10>"  LOC="G16" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<11>"  LOC="E16" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<12>"  LOC="F15" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<13>"  LOC="D15" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<14>"  LOC="D16" | IOSTANDARD=LVCMOS18;
+NET "ramData_io<15>"  LOC="C16" | IOSTANDARD=LVCMOS18;
 
-NET "ramLDQM_out"      TNM="ram_grp" | LOC="H13" | IOSTANDARD=LVCMOS18;
-NET "ramUDQM_out"      TNM="ram_grp" | LOC="K15" | IOSTANDARD=LVCMOS18;
+NET "ramLDQM_out"     LOC="H13" | IOSTANDARD=LVCMOS18;
+NET "ramUDQM_out"     LOC="K15" | IOSTANDARD=LVCMOS18;
 
-NET "ramA12_out"       TNM="ram_grp" | LOC="L16" | IOSTANDARD=LVCMOS18;
-NET "ramCKE_out"       TNM="ram_grp" | LOC="H15" | IOSTANDARD=LVCMOS18;
-NET "ramCS_out"        TNM="ram_grp" | LOC="K13" | IOSTANDARD=LVCMOS18;
+NET "ramA12_out"      LOC="L16" | IOSTANDARD=LVCMOS18;
+NET "ramCKE_out"      LOC="H15" | IOSTANDARD=LVCMOS18;
+NET "ramCS_out"       LOC="K13" | IOSTANDARD=LVCMOS18;
 
 #===============================================================================
-# Timing constraints
+# Timing constraint of FX2 48MHz clock "fx2Clk_in"
 #===============================================================================
-TIMESPEC "TS_clk" = PERIOD "fx2Clk_grp" 20.000 ns HIGH 50 %;
-
-TIMEGRP rio_grp OFFSET = IN 14 ns VALID 19 ns BEFORE "fx2Clk_in";  # tPER - tAC2 - tCKS = 20.833 - 6 - 4.062
-TIMEGRP rio_grp OFFSET = OUT 17 ns AFTER "fx2Clk_in";
-TIMEGRP ram_grp OFFSET = OUT 17 ns AFTER "fx2Clk_in";
+NET "fx2Clk_in" TNM_NET = "fx2Clk_in";
+TIMESPEC "TS_clk" = PERIOD "fx2Clk_in" 20.833 ns HIGH 50 %;

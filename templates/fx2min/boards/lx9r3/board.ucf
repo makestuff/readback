@@ -42,9 +42,9 @@ NET "fx2PktEnd_out"   LOC="P102" | IOSTANDARD=LVTTL;   # PA6/PKTEND
 #===============================================================================
 NET "ramClk_out"      LOC="P58"  | IOSTANDARD=LVTTL;
 
-NET "ramCmd_out<0>"   LOC="P78"  | IOSTANDARD=LVTTL;
-NET "ramCmd_out<1>"   LOC="P75"  | IOSTANDARD=LVTTL;
-NET "ramCmd_out<2>"   LOC="P74"  | IOSTANDARD=LVTTL;
+NET "ramCmd_out<0>"   LOC="P78"  | IOSTANDARD=LVTTL; # WE
+NET "ramCmd_out<1>"   LOC="P75"  | IOSTANDARD=LVTTL; # CAS
+NET "ramCmd_out<2>"   LOC="P74"  | IOSTANDARD=LVTTL; # RAS
 
 NET "ramBank_out<0>"  LOC="P69"  | IOSTANDARD=LVTTL;
 NET "ramBank_out<1>"  LOC="P67"  | IOSTANDARD=LVTTL;
