@@ -1,9 +1,9 @@
-EXAMPLE: LX9 BOARD WITH 8MiB (64Mib) ONBOARD SDRAM:
+EXAMPLE: LX9R3 BOARD WITH 8MiB (64Mib) ONBOARD SDRAM:
 
 Notice that the commands request 0x400000 16-bit words, so the subsequent reads
 and writes are for 0x800000 bytes, which is 8MiB:
 
-  ../../../../bin/hdlmake.py -t ../templates/fx2min/vhdl -b lx9 -p fpga
+  ../../../../bin/hdlmake.py -t ../templates/fx2min/vhdl -b lx9r3 -p fpga
   flcli -i 04b4:8613 -v 1d50:602b:0002 -p J:A7A0A3A1:fpga.xsvf
   dd if=/dev/urandom of=random.dat bs=1024 count=8192
   flcli -v 1d50:602b:0002 -a 'w0 0000000080400000;w0 "random.dat"'
@@ -11,12 +11,12 @@ and writes are for 0x800000 bytes, which is 8MiB:
   diff out.dat random.dat
 
 
-EXAMPLE: LX9 BOARD WITH 16MiB (128Mib) ONBOARD SDRAM:
+EXAMPLE: LX9R3 BOARD WITH 16MiB (128Mib) ONBOARD SDRAM:
 
 Notice that the commands request 0x800000 16-bit words, so the subsequent reads
 and writes are for 0x1000000 bytes, which is 16MiB:
 
-  ../../../../bin/hdlmake.py -t ../templates/fx2min/vhdl -b lx9 -p fpga
+  ../../../../bin/hdlmake.py -t ../templates/fx2min/vhdl -b lx9r3 -p fpga
   flcli -i 04b4:8613 -v 1d50:602b:0002 -p J:A7A0A3A1:fpga.xsvf
   dd if=/dev/urandom of=random.dat bs=1024 count=16384
   flcli -v 1d50:602b:0002 -a 'w0 0000000080800000;w0 "random.dat"'
@@ -43,7 +43,7 @@ Notice that the commands request 0x800000 16-bit words, so the subsequent reads
 and writes are for 0x1000000 bytes, which is 16MiB:
 
   ../../../../bin/hdlmake.py -t ../templates/fx2all-ex/vhdl -b aes220
-  flcli -i 04b4:8613 -v 1d50:602b:0002 -p XS:D0D5D1D6A7[D3?,B1+,B5+,B3+]:top_level.bin
+  flcli -i 2443:00dc -v 1d50:602b:0002 -p XS:D0D5D1D6A7[D3?,B1+,B5+,B3+]:top_level.bin
   dd if=/dev/urandom of=random.dat bs=1024 count=16384
   flcli -v 1d50:602b:0002 -a 'w0 0000000080800000;w0 "random.dat"'
   flcli -v 1d50:602b:0002 -a 'w0 0000000040800000;r0 1000000 "out.dat"'
